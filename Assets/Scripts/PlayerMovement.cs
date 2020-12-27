@@ -4,14 +4,21 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    public float speed;
-    public float acceleration;
+    private Rigidbody2D rb;
 
-    Rigidbody2D rb;
+    //public KeyCode rightTurn;
+    //public KeyCode leftTurn;
+    public KeyCode thrust;
+    //public KeyCode shoot;
 
-    public float rotationControl;
+    private Vector2 speed;
+    public int thrustPower;
 
-    float movY, movX = 1;
+    public bool isFlying = false;
+
+
+
+
 
 
     // Start is called before the first frame update
@@ -23,35 +30,33 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        movY = Input.GetAxis("Vertical");
-    }
-
-    private void FixedUpdate()
-    {
-        Vector2 vel = transform.right * (movX * acceleration);
-        rb.AddForce(vel);
-
-        float dir = Vector2.Dot(rb.velocity, rb.GetRelativeVector(Vector2.right));
-
-        if(acceleration > 0)
+        if (Input.GetKey(KeyCode.UpArrow))
         {
-            rb.rotation += movY * rotationControl * (rb.velocity.magnitude / speed);
+            isFlying = true;
+
+            if(isFlying)
+            {
+                rb.AddForce(new Vector2(0, 5 * thrustPower));
+                
+            }
+            //rb.AddForce(Vector2.up * thrustPower);
+            //rb.velocity += rb.velocity * speed;
+            
         }
         else
         {
-            rb.rotation -= movY * rotationControl * (rb.velocity.magnitude / speed);
+            isFlying = false;
         }
 
-        float thrustForce = Vector2.Dot(rb.velocity, rb.GetRelativeVector(Vector2.down)) * 2.0f;
-
-        Vector2 relativeForce = Vector2.up * thrustForce;
-
-        rb.AddForce(rb.GetRelativeVector(relativeForce));
-
-        if(rb.velocity.magnitude > speed)
+        if (Input.GetKeyDown(KeyCode.RightArrow))
         {
-            rb.velocity = rb.velocity.normalized * speed;
+            rb.rotation += -100;
+            //rb.transform.Rotate(0.0f, 0.0f, 40 * Time.deltaTime);
         }
-    }
-
+        else if (Input.GetKeyDown(KeyCode.LeftArrow))
+        {
+            rb.rotation += 100;
+            
+        }
+    }   
 }
