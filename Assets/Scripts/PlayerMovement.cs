@@ -6,20 +6,20 @@ public class PlayerMovement : MonoBehaviour
 {
     private Rigidbody2D rb;
 
-    //public KeyCode rightTurn;
-    //public KeyCode leftTurn;
+    public KeyCode rightTurn;
+    public KeyCode leftTurn;
     public KeyCode thrust;
     //public KeyCode shoot;
 
-    private Vector2 speed;
     public int thrustPower;
+    public int speed;
 
     public bool isFlying = false;
+    public bool isRotatingR = false;
+    public bool isRotatingL = false;
 
-
-
-
-
+    private float rot;
+    private float rotationSpeed;
 
     // Start is called before the first frame update
     void Start()
@@ -28,35 +28,75 @@ public class PlayerMovement : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
-        if (Input.GetKey(KeyCode.UpArrow))
+        //thrust force + direction defined.
+        if (Input.GetKey(thrust))
         {
             isFlying = true;
 
             if(isFlying)
             {
-                rb.AddForce(new Vector2(0, 5 * thrustPower));
-                
-            }
-            //rb.AddForce(Vector2.up * thrustPower);
-            //rb.velocity += rb.velocity * speed;
-            
+                rb.AddRelativeForce(new Vector3(0, speed * thrustPower, 0));
+            } 
         }
         else
         {
             isFlying = false;
         }
 
-        if (Input.GetKeyDown(KeyCode.RightArrow))
+        //Player rotation (z axis rotation).
+        if (Input.GetKey(rightTurn))
         {
-            rb.rotation += -100;
-            //rb.transform.Rotate(0.0f, 0.0f, 40 * Time.deltaTime);
+            isRotatingR = true;
+
+            if (isRotatingR)
+            {
+                rot -= rotationSpeed * Time.deltaTime;
+            }               
         }
-        else if (Input.GetKeyDown(KeyCode.LeftArrow))
+        else
         {
-            rb.rotation += 100;
-            
+            isRotatingR = false;
         }
-    }   
+        
+        if(Input.GetKey(leftTurn))
+        {
+            isRotatingL = true;
+
+            if (isRotatingL)
+            {
+                rot += rotationSpeed * Time.deltaTime;
+            }    
+        }
+        else
+        {
+            isRotatingL = false;
+        }
+        
+        rb.transform.eulerAngles = 
+            new Vector3(rb.transform.eulerAngles.x, rb.transform.eulerAngles.y, rot);
+    
+        //Player rotation speed without using thust, else when using thrust.
+        if (isFlying != true)
+        {
+            rotationSpeed = 200;
+        }
+        else
+        {
+            rotationSpeed = 100;
+        }
+    }
 }
+
+
+
+//Different attempts:
+//isFlying:
+//rb.AddForce(Vector2.up * thrustPower);
+//rb.velocity += rb.velocity * speed;
+
+//IsRotating:
+//rb.rotation += -100;
+//rb.transform.Rotate(0.0f, 0.0f, -40 * Time.deltaTime);
+//rb.MoveRotation(30 * Time.deltaTime);
