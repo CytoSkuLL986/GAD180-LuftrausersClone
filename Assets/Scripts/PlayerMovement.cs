@@ -38,6 +38,7 @@ public class PlayerMovement : MonoBehaviour
             if(isFlying)
             {
                 rb.AddRelativeForce(new Vector3(0, speed * thrustPower, 0));
+                rb.drag = speed / thrustPower;
             } 
         }
         else
