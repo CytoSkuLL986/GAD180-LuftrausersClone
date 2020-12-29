@@ -9,7 +9,6 @@ public class PlayerMovement : MonoBehaviour
     public KeyCode rightTurn;
     public KeyCode leftTurn;
     public KeyCode thrust;
-    //public KeyCode shoot;
 
     public int thrustPower;
     public int speed;
@@ -38,7 +37,6 @@ public class PlayerMovement : MonoBehaviour
             if(isFlying)
             {
                 rb.AddRelativeForce(new Vector3(0, speed * thrustPower, 0));
-                rb.drag = speed / thrustPower;
             } 
         }
         else
@@ -47,6 +45,9 @@ public class PlayerMovement : MonoBehaviour
         }
 
         //Player rotation (z axis rotation).
+
+        rb.transform.eulerAngles = new Vector3(rb.transform.eulerAngles.x, rb.transform.eulerAngles.y, rot);
+
         if (Input.GetKey(rightTurn))
         {
             isRotatingR = true;
@@ -75,8 +76,6 @@ public class PlayerMovement : MonoBehaviour
             isRotatingL = false;
         }
         
-        rb.transform.eulerAngles = 
-            new Vector3(rb.transform.eulerAngles.x, rb.transform.eulerAngles.y, rot);
     
         //Player rotation speed without using thust, else when using thrust.
         if (isFlying != true)
@@ -85,7 +84,7 @@ public class PlayerMovement : MonoBehaviour
         }
         else
         {
-            rotationSpeed = 100;
+            rotationSpeed = 50;
         }
     }
 }
