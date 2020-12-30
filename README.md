@@ -1,0 +1,10 @@
+# GAD180-LuftrausersClone
+This repository houses my clone of the game Luftrausers. The works of this project are for learning purposes only and not made for profit.
+
+This game project includes visual assets from:
+
+-Sunny Land Forest (Asset pack) by Ansimuz: 
+https://ansimuz.itch.io/sunnyland-forest
+
+-2D Clouds by kitart360:
+https://opengameart.org/content/2d-clouds
