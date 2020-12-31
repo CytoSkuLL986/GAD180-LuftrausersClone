@@ -84,7 +84,7 @@ public class PlayerMovement : MonoBehaviour
         }
         else
         {
-            rotationSpeed = 50;
+            rotationSpeed = 75;
         }
     }
 }

@@ -3,8 +3,8 @@ This repository houses my clone of the game Luftrausers. The works of this proje
 
 This game project includes visual assets from:
 
--Sunny Land Forest (Asset pack) by Ansimuz: 
-https://ansimuz.itch.io/sunnyland-forest
+-Magic Cliffs Environment by Ansimuz:
+https://opengameart.org/content/magic-cliffs-environment
 
 -2D Clouds by kitart360:
 https://opengameart.org/content/2d-clouds
