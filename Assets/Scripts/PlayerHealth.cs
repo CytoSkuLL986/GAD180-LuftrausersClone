@@ -4,26 +4,61 @@ using UnityEngine;
 
 public class PlayerHealth : MonoBehaviour
 {
-    //private int health = 3;
-    //bool isHit = false;
+    [SerializeField] int health;
+    bool isHit = false;
+    public bool isFiring = false;
+    public Rigidbody2D rb;
+
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        health = 100;
+        StartCoroutine(PlayerHeal());
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if (Input.GetKey(KeyCode.X))
+        {
+            isFiring = true;
+        }
+        else
+        {
+            isFiring = false;
+        }
+
+
+
+
+        if (health <= 0)
+        {
+            Debug.Log("Game Over!");
+            GetComponent<PlayerMovement>().enabled = false;
+            rb.gravityScale = 3;
+        }
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+   IEnumerator PlayerHeal()
     {
-        //isHit = true;
-        //Debug.Log("You've been hit!");
-        //if 
+        while (health < 40 && !isFiring)
+        {
+            health += 5;
+            yield return new WaitForSecondsRealtime(2);
+        }
     }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.CompareTag("EnemyProjectile"))
+        {
+            Debug.Log("You Have Been Hit!");
+            health -= 10;
+        }
+    }
+
+
 
 }

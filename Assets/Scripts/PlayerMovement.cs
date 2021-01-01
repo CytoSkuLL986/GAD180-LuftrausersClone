@@ -20,16 +20,25 @@ public class PlayerMovement : MonoBehaviour
     private float rot;
     private float rotationSpeed;
 
+    AudioSource thrustSound;
+    
+
     // Start is called before the first frame update
     void Start()
     {
-        rb = GetComponent<Rigidbody2D>();
+        rb = this.GetComponent<Rigidbody2D>();
+        thrustSound = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
         //thrust force + direction defined.
+        if (Input.GetKeyDown(thrust))
+           {
+            thrustSound.Play();
+            }
+
         if (Input.GetKey(thrust))
         {
             isFlying = true;
@@ -80,12 +89,25 @@ public class PlayerMovement : MonoBehaviour
         //Player rotation speed without using thust, else when using thrust.
         if (isFlying != true)
         {
-            rotationSpeed = 200;
+            rotationSpeed = 190;
         }
         else
         {
-            rotationSpeed = 75;
+            rotationSpeed = 90;
         }
+    
+        if(Input.GetKey(KeyCode.X))
+        {
+            //rb.velocity = new Vector3(-thrustPower, -thrustPower, 0);
+
+            rb.AddRelativeForce(new Vector3(0, -7 * thrustPower, 0));
+
+            
+        }
+    }
+
+    private void LateUpdate()
+    {
     }
 }
 
@@ -100,3 +122,7 @@ public class PlayerMovement : MonoBehaviour
 //rb.rotation += -100;
 //rb.transform.Rotate(0.0f, 0.0f, -40 * Time.deltaTime);
 //rb.MoveRotation(30 * Time.deltaTime);
+
+//KeyCode X:
+//rb.AddForce(new Vector3(-thrustPower, -thrustPower, 0));
+//rb.transform.up = new Vector3(-thrustPower, -thrustPower, 0);

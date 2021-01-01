@@ -15,8 +15,15 @@ public class ProjectileDestruction : MonoBehaviour
     //Destroys Projectile on collision.
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        Debug.Log("Collision!");
-        Destroy(gameObject, 0.08f);
+        
     
     }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        Destroy(gameObject);
+        Debug.Log("Collision!");
+    }
+
+
 }
