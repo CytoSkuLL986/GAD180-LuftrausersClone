@@ -9,13 +9,14 @@ public class PlayerHealth : MonoBehaviour
     public bool isFiring = false;
     public Rigidbody2D rb;
 
+    private CameraShake shake;
 
     // Start is called before the first frame update
     void Start()
     {
         health = 100;
         StartCoroutine(PlayerHeal());
-
+        shake = GameObject.FindGameObjectWithTag("CameraShake").GetComponent<CameraShake>();
     }
 
     // Update is called once per frame
@@ -37,6 +38,7 @@ public class PlayerHealth : MonoBehaviour
         {
             Debug.Log("Game Over!");
             GetComponent<PlayerMovement>().enabled = false;
+            GetComponent<PlayerShooting>().enabled = false;
             rb.gravityScale = 3;
         }
     }
@@ -54,6 +56,7 @@ public class PlayerHealth : MonoBehaviour
     {
         if(collision.CompareTag("EnemyProjectile"))
         {
+            shake.CamShake();
             Debug.Log("You Have Been Hit!");
             health -= 10;
         }

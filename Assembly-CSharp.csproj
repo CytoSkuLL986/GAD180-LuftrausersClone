@@ -64,6 +64,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\CameraFollow.cs" />
+    <Compile Include="Assets\Scripts\CameraShake.cs" />
     <Compile Include="Assets\Scripts\DestroyEnemy.cs" />
     <Compile Include="Assets\Scripts\EnemyFire.cs" />
     <Compile Include="Assets\Scripts\EnemyMovement.cs" />
